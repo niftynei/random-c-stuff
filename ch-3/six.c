@@ -1,22 +1,22 @@
-// In a two's complement number representation, our version of itoa does not 
-// handle the largest negative number, that is, the value of n equal to
-// -(2^wordsize-1). Explain why not. Modify it to print that value correctly,
-// regardless of what machine it runs on
 //
 #include <stdio.h>
 #include <string.h>
 
-void itoa(int, char[]);
+void itoa(int, char[], int);
 void reverse(char[]);
 
 int main() {
   char s[100] = {};
   int a = -2147483648;
-  itoa(a, s);
+  itoa(a, s, 20);
+  printf("%s\n", s);
+  itoa(255, s, 20);
+  printf("%s\n", s);
+  itoa(10348829, s, 20);
   printf("%s\n", s);
 }
 
-void itoa(int n, char s[]) {
+void itoa(int n, char s[], int min_width) {
   int i, sign, is_max;
   i = is_max  = 0;
 
@@ -36,6 +36,9 @@ void itoa(int n, char s[]) {
   } while ((n /= 10) > 0);
   if (sign < 0) {
     s[i++] = '-';
+  }
+  while (min_width > i) {
+    s[i++] = ' ';
   }
   s[i] = '\0';
   reverse(s);
