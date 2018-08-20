@@ -17,23 +17,15 @@ int main() {
 }
 
 void itoa(int n, char s[], int min_width) {
-  int i, sign, is_max;
-  i = is_max  = 0;
+  int i, sign;
+  sign = n;
+  i = 0;
 
-  if ((sign = n) < 0) {
-    n = -n;
-  }
-  if (n < 0) { // max int won't flip, so take care of it
-    n = (n + 1) * -1;
-    is_max = 1;
-  }
   do {
-    if (i == 0 && is_max) {
-      s[i++] = (n % 10 + 1) + '0';
-    } else {
-      s[i++] = n % 10 + '0';
-    }
-  } while ((n /= 10) > 0);
+    int x = n % 10; 
+    x = x >= 0 ? x : x * -1;
+    s[i++] = x % 10 + '0';
+  } while ((n /= 10) != 0);
   if (sign < 0) {
     s[i++] = '-';
   }

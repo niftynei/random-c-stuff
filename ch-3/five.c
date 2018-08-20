@@ -12,7 +12,7 @@ char findChar(int);
 
 int main() {
   char s[100] = {};
-  int a = -2147483647;
+  int a = -2147483648;
   //int a = 255;
   itob(a, s, 10);
   printf("%s\n", s);
@@ -24,16 +24,13 @@ int main() {
 
 void itob(int n,char s[], int b) {
   int i, sign, is_max;
-  long a = n;
-
   i = 0;
-
-  if ((sign = a) < 0) {
-    a = -a;
-  }
+  sign = n;
   do {
-    s[i++] = findChar(a % b);
-  } while ((a /= b) > 0);
+    int x = n % b; 
+    x = x >= 0 ? x : x * -1;
+    s[i++] = findChar(x);
+  } while ((n /= b) != 0);
   if (sign < 0) {
     s[i++] = '-';
   }
